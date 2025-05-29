@@ -1,1 +1,46 @@
+Custom-rules.xml — Suspicious Command Detection Rules
 
+# custom-rules.xml
+
+This file contains custom Wazuh detection rules for identifying suspicious commands such as `netcat` usage.
+
+## Instructions
+
+1. Save this file as `/var/ossec/etc/rules/custom-rules.xml` on your Wazuh manager server.
+
+2. Restart the Wazuh manager service to apply the new rules:
+
+```bash
+sudo systemctl restart wazuh-manager
+Rule Details
+Rule ID: 100101
+
+Level: 10 (High severity)
+
+Trigger: Detects any command containing nc (netcat) from auditd logs.
+
+Purpose: Detects possible reverse shells or data exfiltration attempts using netcat.
+
+MITRE ATT&CK Mapping: T1059 - Command and Scripting Interpreter
+
+custom-rules.xml content
+xml
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+
+  <!-- Custom Rule for Suspicious Command Detection: netcat usage -->
+  <group name="auditd,suspicious_commands,">
+
+    <rule id="100101" level="10" frequency="1" timeframe="3600">
+      <decoded_as>auditd</decoded_as>
+      <field name="command">.*nc.*</field>
+      <description>Suspicious command detected: netcat usage</description>
+      <mitre>
+        <id>T1059</id> <!-- Command and Scripting Interpreter -->
+      </mitre>
+      <group>attack.execution</group>
+    </rule>
+
+  </group>
+
+</ruleset>
