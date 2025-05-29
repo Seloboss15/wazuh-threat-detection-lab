@@ -6,12 +6,14 @@ This file contains custom Wazuh detection rules for identifying suspicious comma
 
 ## Instructions
 
-1. Save this file as `/var/ossec/etc/rules/custom-rules.xml` on your Wazuh manager server.
+#1. Save this file as `/var/ossec/etc/rules/custom-rules.xml` on your Wazuh manager server.
 
-2. Restart the Wazuh manager service to apply the new rules:
+#2. Restart the Wazuh manager service to apply the new rules:
 
 ```bash
 sudo systemctl restart wazuh-manager
+```
+
 Rule Details
 Rule ID: 100101
 
